@@ -1,8 +1,11 @@
+"use client"
 import React, { useState } from 'react'
 import { NFTStorage, File, Blob } from 'nft.storage'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import Head from "next/head";
+import aus from "./austin.png"
 import { ethers } from "ethers";
+import { useEnsAvatar, useEnsName } from 'wagmi'
 import Web3Modal from "web3modal";
 const NFT_STORAGE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkwOUYwN0M4Yjc2ODBBNDZkN0Q0ZDkwMmUzNjcyRDZmMzc3RTZjNzQiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5NTU1NDIwNDkyOCwibmFtZSI6Ik9wZW5EYXRhSGFjayJ9.dSwxOQqrrFNGdaoO39NlcIK4G9fSoRKkgaxBrzrA_eg'
 const client = new NFTStorage({ token: NFT_STORAGE_TOKEN })
@@ -791,16 +794,22 @@ const preferenceAbi = [
 		"type": "function"
 	}
 ]
-const preferenceAddress = "0x5d23c6bfB54b76511dE38a3c5770306620f35074";
-const sourceMinterAddress = "0xD81cf3CbF8B7554208146451A3219c29534D80cA"
-const NFTaddress = "0x7B690825bBB3f0a5b8410d4596e12e79c62909C0"
+const preferenceAddress = "0x096AC235D1d7F1D60750384a3Ec80AE5801143a5";
+const sourceMinterAddress = "0x3c0dA8EB9Ad1625e104c5970A9A2D0Fd14a836CC"
+const NFTaddress = "0x50D146d26A40721FcE72bcF0AE95d56f5D4Aa7c0"
 function sendNFTs() {
+
+	const [boole, setBoole] = useState(false);
 	const [enteredAddress, setEnteredAddress] = useState("");
 	const [imageSrc, setImageSrc] = useState("");
+	const [ens, setEns] = useState("");
+	const[ensAvatar, setEnsAvatar]= useState(null)
 	const [receiverChain, setReceiverChain] = useState("");
 	const [preference, setPreference] = useState([]);
 	const [correctAddress, setCorrectAddress] = useState("")
 	const [ipfs, setIpfs] = useState("");
+		//  const enss =  useEnsName({address: "0xc59e2441bD6b8b47E207E4cD40EbD0CD35c85aaF", chainId: 5 });
+		//  const enssAvatar = useEnsAvatar({ name: enss.data, chainId: 5 });
     const handleImageChange = (e:any) => {
         setImageSrc(URL.createObjectURL(e.target.files[0]));
     };
@@ -827,7 +836,7 @@ function sendNFTs() {
     const provider = new ethers.providers.Web3Provider(connection);
 		const signer = await provider.getSigner();
 		const contract = new ethers.Contract(sourceMinterAddress, sourceMinterAbi, signer);
-		const txn = await contract.mint("12532609583862916517", "0xf701D829de7ecD724f674C00fD714936Fa510ce8", 0, correctAddress,ipfs )
+		const txn = await contract.mint("5790810961207155433", "0xfeECc3fEea9bD8A418AA90F99C058a9704eBc72B", 0, correctAddress,ipfs )
 		await txn.wait();
 		window.alert(`Check the transaction chainlink ccip explorer https://ccip.chain.link/msg/${txn}`)
 	}
@@ -851,6 +860,11 @@ function sendNFTs() {
 	const handleInputChange = async (e: any) => {
 		setEnteredAddress(e.target.value);
 		
+	}
+	async function getENS() {
+	setBoole(true);
+
+
 	}
 
 	async function preferedChain() {
@@ -885,11 +899,23 @@ function sendNFTs() {
 					
 					<input onChange={handleInputChange} type="text" placeholder="0x..." className="input input-bordered w-full max-w-xs" />
 					<button onClick={checkAddress} className="btn btn-primary">Check if the address is correct</button>
-					{correctAddress && <h6>User's Preferred Address is {correctAddress}</h6>}
-					{/* <h2 className="card-title">NFT Contract Address</h2>
+					
+					{correctAddress && <> <h6>User's Preferred Address is {correctAddress}</h6>
+						<div className='flex'>
+					 <img
+          className="inline-flex h-12 w-12 rounded-full ring-2 ring-white"
+          src={aus.src}
+          alt=""
+        />
+ <p className="text-sm font-semibold leading-6 text-gray-900 ml-3">           austingrifith</p></div> </>}  
+				{/* <h2 className="card-title">NFT Contract Address</h2>
 					<input type="text" placeholder="0x..." className="input input-bordered w-full max-w-xs" /> */}
 					
 					<div className="card-actions justify-end">
+						<button onClick={getENS} className="btn btn-secondary">Get corresponding ens</button>
+			      
+
+	
 						<button onClick={storeNft} className="btn btn-neutral" > Upload to NFTStorage </button>
 						{/* <button className="btn btn-neutral" onClick={() => (document.getElementById('my_modal_2') as HTMLDialogElement)?.showModal()}>Don't have an NFT contract already? Create one</button>
 						<dialog id="my_modal_2" className="modal">
@@ -916,8 +942,10 @@ function sendNFTs() {
   </div>
 </div></div>
                   
-           
-          
+{/*            
+       <img className="h-24 w-24 flex-none rounded-full bg-gray-50" src={useEnsAvatar({ name: useEnsName({ address: person, chainId: 5 })?.data   , chainId: 5 })?.data||undefined} alt="" />
+            <div className="min-w-0 flex-auto">
+                */}
             
         </div>
   

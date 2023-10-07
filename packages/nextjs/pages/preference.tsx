@@ -171,7 +171,7 @@ export default function Create() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = await provider.getSigner();
-    const contract = new ethers.Contract("0x5d23c6bfB54b76511dE38a3c5770306620f35074", preferenceAbi, signer);
+    const contract = new ethers.Contract("0x096AC235D1d7F1D60750384a3Ec80AE5801143a5", preferenceAbi, signer);
     const txn = await contract.registerUser(nameData.daoName, inputs, selectedOption, selectedCurrency);
     await txn.wait();
     console.log(txn);
@@ -262,7 +262,7 @@ export default function Create() {
                   >
                     <option value="sepolia">Ethereum Sepolia</option>
                     <option value="mumbai">Polygon Mumbai</option>
-                    <option value="goerli">Arbitrum Goerli</option>
+                    <option value="Base Goerli">Base Goerli</option>
                   </select>
                 </div>
               </div>
