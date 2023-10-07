@@ -808,8 +808,8 @@ function sendNFTs() {
 	const [preference, setPreference] = useState([]);
 	const [correctAddress, setCorrectAddress] = useState("")
 	const [ipfs, setIpfs] = useState("");
-		//  const enss =  useEnsName({address: "0xc59e2441bD6b8b47E207E4cD40EbD0CD35c85aaF", chainId: 5 });
-		//  const enssAvatar = useEnsAvatar({ name: enss.data, chainId: 5 });
+		 const enss =  useEnsName({address: correctAddress, chainId: 5 });
+		 const enssAvatar = useEnsAvatar({ name: enss.data, chainId: 5 });
     const handleImageChange = (e:any) => {
         setImageSrc(URL.createObjectURL(e.target.files[0]));
     };
@@ -904,10 +904,10 @@ function sendNFTs() {
 						<div className='flex'>
 					 <img
           className="inline-flex h-12 w-12 rounded-full ring-2 ring-white"
-          src={aus.src}
+          src={enssAvatar.data}
           alt=""
         />
- <p className="text-sm font-semibold leading-6 text-gray-900 ml-3">           austingrifith</p></div> </>}  
+							<p className="text-sm font-semibold leading-6 text-gray-900 ml-3">           {enss.data}</p></div> </>}  
 				{/* <h2 className="card-title">NFT Contract Address</h2>
 					<input type="text" placeholder="0x..." className="input input-bordered w-full max-w-xs" /> */}
 					
