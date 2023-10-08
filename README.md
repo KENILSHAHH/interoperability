@@ -4,7 +4,7 @@ Its really painful to let users send assets and NFTS/POAP's to your unwanted/unp
 
 Well YourAssetsYourChain solves this issue where in the Community/DAOs/anyone can send the NFTs to the other users on their preferred chain as well as preferred addresses. 
 
-Gnosis Tweet Link https://twitter.com/KenilShahh/status/1710710660391481775
+Gnosis Tweet Link [https://twitter.com/KenilShahh/status/1710710660391481775](https://twitter.com/KenilShahh/status/1710924076091654381)
 
 Preference Contract Deployed over Gnosis Chiado testnet https://gnosis-chiado.blockscout.com/address/0x096AC235D1d7F1D60750384a3Ec80AE5801143a5
 
